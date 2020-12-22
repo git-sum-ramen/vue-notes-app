@@ -1,19 +1,42 @@
 <template>
   <div id="app">
-    <Toolbar />
-    <NoteContainer />
+    <Toolbar />    
+    <multiselect v-model="value" :options="options"></multiselect>
+    here is the value: {{ value }}
   </div>
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect'
+
 import Toolbar from "./components/Toolbar.vue"
 import NoteContainer from "./components/NoteContainer.vue"
 export default {
   components: {
     Toolbar,
-    NoteContainer
+    NoteContainer,
+    Multiselect
   },
-  name: 'app'
+  name: 'app',
+  data: function() {
+    return {
+      notes: [
+        { id: 1, body: "This is a first test", timestamp: Date.now() },
+        { id: 2, body: "This is a second test", timestamp: Date.now() },
+        { id: 3, body: "This is a third test", timestamp: Date.now() },
+        { id: 4, body: "This is a fourth test", timestamp: Date.now() }
+      ],
+      selectedNoteId: 3,
+      value: null,
+      options: ['list', 'of', 'options']
+    }
+  },
+  methods: {
+    selectNoteId: function(note) {
+      console.log('selecting the note...')
+      this.selectedNoteId = note.id;
+    }
+  }
 };
 </script>
 
